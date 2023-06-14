@@ -61,7 +61,9 @@ is_commenting = False
 include_headers = dict()
 
 f = open('E:/Programming/Projects/Unreal/AreaOfOperations/Project/Source/AOGame/Character/Actor/AOCharacter.h', 'r', encoding='utf-8')
-for line in f.readlines():
+
+file_lines = f.readlines()
+for line in file_lines:
     if is_collect_start:
         nospace_line = line.replace(" ", "")
         if nospace_line == '\n' or '//' in line:
@@ -92,13 +94,25 @@ for line in f.readlines():
         is_collect_start = True
         print('Collect Start')
         
-# Formating
-for include_module_name in include_headers:
-    print('//' + include_module_name)
-    for include_header_line in include_headers[include_module_name]:
-        print(include_header_line, end='') 
-    print('\n', end='')
+f.close()
 
-# Test
-print(config_source_path)
-print(config_module_names)
+# sorting order
+
+
+# rewriting
+is_replacing = False
+f = open('E:/Programming/Projects/Unreal/AreaOfOperations/Project/Source/AOGame/Character/Actor/AOCharacter.h', 'w', encoding='utf-8')
+for line in file_lines:
+    if is_replacing is False:
+        f.write(line)
+
+    if '#pragma once' in line:
+        is_replacing = True
+    elif 'generated.h' in line:
+        is_replacing = False
+        for include_module_name in include_headers:
+            f.write('\n')
+            f.write('//' + include_module_name + '\n')
+            for include_header_line in include_headers[include_module_name]:
+                f.write(include_header_line) 
+f.close()
