@@ -1,1 +1,0 @@
-# Copyright Allve, Inc. All Rights Reserved.
