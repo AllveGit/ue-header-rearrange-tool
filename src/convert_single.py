@@ -14,7 +14,7 @@ def check_config_valid(config_source_path, config_uproject_path):
 
 # Parsing execute option from arguments
 # argument 1 - target sourcecode path
-def process_convert():
+def process_convert_single():
     args_converttarget_path = ''
     if len(sys.argv) >= 2:
         args_converttarget_path = sys.argv[1]
@@ -35,4 +35,4 @@ def process_convert():
     # Converting
     header_include_rearrange.process(args_converttarget_path, config_source_path, config_uproject_path)
 
-process_convert()
+process_convert_single()
